@@ -20,8 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             RoleSeeder::class,
-            // PostSeeder::class,
-            // CommentSeeder::class,
+            AdminSeeder::class
         ]);
     }
 }
