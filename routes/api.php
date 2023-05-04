@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard', [DashboardController::class,'index']);
     Route::get('/logged-in-user', [UserController::class, 'loggedInUser']);
+    Route::get('/get-users', [UsersController::class,  'getUsers']);
     // Route::post('/update-user-image', [UserController::class, 'updateUserImage']);
     // // Route::patch('/update-user', [UserController::class, 'updateUser']);
     // Route::get('/users',[UsersController::class, 'users']);
