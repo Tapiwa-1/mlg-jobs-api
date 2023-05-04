@@ -24,13 +24,19 @@ class RoleController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function addRole(Request $request)
     {
-        //storing a new role
-        $validated = $request->validate(['name' => ['required', 'min:3']]);
-        Role::create($validated);
+        $request->validate(['name' => ['required', 'min:3','unique:'.Role::class]]);
 
-        
+        try {
+            //storing a new role
+            $role = new Role();
+            $role->name = $request->input('name');
+            $role->save();
+            return response()->json("Role Created successfully", 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     public function update(Request $request, Role $role)
