@@ -39,6 +39,16 @@ class RoleController extends Controller
         }
     }
 
+    public function getRole($id)
+    {
+        //getting one role available
+        try {
+            $role = Role::find($id);
+            return response()->json($role, 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
     public function update(Request $request, Role $role)
     {
         //updating an existing role
@@ -48,29 +58,19 @@ class RoleController extends Controller
         
     }
 
-    public function destroy(Role $role)
+    public function deleteRole($id)
     {
-        //delete a role
-        $role->delete();
-
+        try {
+            //delete a role
+            $role = Role::find($id);
+            $role->delete();
+           
+            return response()->json("Role Deleted successfully", 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
         
     }
 
-    // public function givePermission(Request $request, Role $role)
-    // {
-    //     if($role->hasPermissionTo($request->permission)){
-    //         return back()->with('message', 'Permission exists.');
-    //     }
-    //     $role->givePermissionTo($request->permission);
-    //     return back()->with('message', 'Permission added.');
-    // }
-
-    // public function revokePermission(Role $role, Permission $permission)
-    // {
-    //     if($role->hasPermissionTo($permission)){
-    //         $role->revokePermissionTo($permission);
-    //         return back()->with('message', 'Permission revoked.');
-    //     }
-    //     return back()->with('message', 'Permission not exists.');
-    // }
+ 
 }
