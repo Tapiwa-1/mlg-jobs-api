@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    //get current logged in user
     public function loggedInUser()
     {
         try {
@@ -18,4 +19,5 @@ class UserController extends Controller
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
+    
 }

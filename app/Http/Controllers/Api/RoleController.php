@@ -44,18 +44,41 @@ class RoleController extends Controller
         //getting one role available
         try {
             $role = Role::find($id);
+            
             return response()->json($role, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
-    public function update(Request $request, Role $role)
+    public function editRole(Request $request)
+    {
+        $request->validate(['name' => ['required', 'min:3','unique:'.Role::class]]);
+        try {
+            //storing a new role
+            $role = new Role();
+            // $role->find($request->input('id'))
+            // $role->name = $request->input('name');
+            $role->save();
+            return response()->json("Role Created successfully", 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    public function updateRole(Request $request)
     {
         //updating an existing role
-        $validated = $request->validate(['name' => ['required', 'min:3']]);
-        $role->update($validated);
-
-        
+        $request->validate(['name' => ['required', 'min:3']]);
+        // $role->update($validated);
+        try {
+            $role = new Role();
+            $role = Role::find($request->input('role_id'));
+            $role->name = $request->input('name');
+            $role->save();
+            return response()->json($request, 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     public function deleteRole($id)

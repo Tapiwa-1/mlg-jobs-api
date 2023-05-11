@@ -22,7 +22,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard', [DashboardController::class,'index']);
     Route::get('/logged-in-user', [UserController::class, 'loggedInUser']);
     Route::get('/get-users', [UsersController::class,  'getUsers']);
-
+    Route::get('/user/{id}', [UsersController::class,  'getUser']);
+    
     // Route::post('/update-user-image', [UserController::class, 'updateUserImage']);
     // // Route::patch('/update-user', [UserController::class, 'updateUser']);
     // Route::get('/users',[UsersController::class, 'users']);
@@ -30,6 +31,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/roles', [RoleController::class, 'index']);
     Route::get('/role/{id}', [RoleController::class, 'getRole']);
     Route::post('/add-role',[ RoleController::class, 'addRole']);
+    Route::post('/update-role/{id}/{name}',[ RoleController::class, 'updateRole']);
     Route::delete('/role/{id}',[ RoleController::class, 'deleteRole']);
     // Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
     // Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
